@@ -1,0 +1,16 @@
+kbd{
+	display: inline-block;
+	border: 1px solid red;
+	width: 50px;
+	height: 40px;
+	font-size: 16px;
+	margin: 0 10px;
+	text-align: initial;
+}
+kbd:hover{
+	cursor: pointer;
+}
+.wrapper > div{
+	text-align: center;
+	margin: 20px;
+}
