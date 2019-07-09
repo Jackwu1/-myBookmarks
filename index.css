@@ -6,9 +6,21 @@ kbd{
 	font-size: 16px;
 	margin: 0 10px;
 	text-align: initial;
+	position: relative;
 }
+kbd button{
+	font-size: 12px;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	display: none
+}
+
 kbd:hover{
 	cursor: pointer;
+}
+kbd:hover button{
+	display: inline-block;
 }
 .wrapper > div{
 	text-align: center;
