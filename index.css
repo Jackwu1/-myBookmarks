@@ -1,21 +1,37 @@
+
 kbd{
 	display: inline-block;
-	border: 1px solid red;
 	width: 50px;
 	height: 40px;
 	font-size: 16px;
-	margin: 0 10px;
+	margin: 0 6px;
 	text-align: initial;
 	position: relative;
+	color: #C5C5C5;
+	background: linear-gradient(to bottom, #292929 0%,#111111 100%);
+	border-radius: 6px;
+	box-shadow: 0 0 0 1px #1A1B1C, 0 0 0 2px #1F2020, 0 3px 0 2px #080808;
+	font-family: Helvetica;
+}
+kbd span{
+	margin-left: 5px;
 }
 kbd button{
 	font-size: 12px;
 	position: absolute;
 	bottom: 0;
 	right: 0;
-	display: none
+	display: none;
+	padding: 0;
+	margin: 0;
 }
-
+kbd img{
+	width: 16px;
+    height: 16px;
+    position: absolute;
+    left: 4px;
+    bottom: 2px;
+}
 kbd:hover{
 	cursor: pointer;
 }
@@ -25,4 +41,20 @@ kbd:hover button{
 .wrapper > div{
 	text-align: center;
 	margin: 20px;
+}
+main{
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background: grey url(./wall.jpg) no-repeat center center;
+}
+main .wrapper{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	background: rgba(255,255,255,0.2);
+	border-radius: 10px;
 }

@@ -16,44 +16,93 @@
 	</main>
 	<footer></footer>
 	<script type="text/javascript">
-		var keys = {
-			'0': {0:'q', 1:'w', 2:'e', 3:'r', 4:'t', 5:'y', 6:'u', 7:'i', 8:'o', 9:'p', length:10},
-			'1': {0:'a', 1:'s', 2:'d', 3:'f', 4:'g', 5:'h', 6:'j', 7:'k', 8:'l', length:9},
-			'2': {0:'z', 1:'x', 2:'c', 3:'v', 4:'b', 5:'n', 6:'m', length:7},
-			'length':3
-		};
-		var hash = {'q': 'qq.com', 'w': 'weibo.com', 'e': 'ele.me', 'r': 'renren.com', 't': 'tianya.com', 'y': 'youtube.com', 'u': 'uc.com' , 'i': 'iqiyi.com', 'o': 'opera.com', 'p': undefined, 'a': 'acfun.tv', 's': 'sohu.com', 'z': 'zhihu.com', 'm': 'www.mcdonalds.com.cn'
-		};
-		if(JSON.parse(localStorage.getItem('hash'))){
-			hash = JSON.parse(localStorage.getItem('hash')) 
-		}
+		let allKeys = init();
+		let keys = allKeys.keys;
+		let hash = allKeys.hash;
 		create();
+		document.onkeypress = function(e){
+			console.log(e.key);
+			console.log(hash)
+			window.open(`http://${hash[e.key]}`)
+		}
+		// 初始化
+		function init() {
+			var keys = {
+				'0': {0:'q', 1:'w', 2:'e', 3:'r', 4:'t', 5:'y', 6:'u', 7:'i', 8:'o', 9:'p', length:10},
+				'1': {0:'a', 1:'s', 2:'d', 3:'f', 4:'g', 5:'h', 6:'j', 7:'k', 8:'l', length:9},
+				'2': {0:'z', 1:'x', 2:'c', 3:'v', 4:'b', 5:'n', 6:'m', length:7},
+				'length':3
+			};
+			var hash = {'q': 'qq.com', 'w': 'weibo.com', 'e': 'ele.me', 'r': 'renren.com', 't': 'tianya.com', 'y': 'youtube.com', 'u': 'uc.com' , 'i': 'iqiyi.com', 'o': 'opera.com', 'p': undefined, 'a': 'acfun.tv', 's': 'sohu.com', 'z': 'zhihu.com', 'm': 'www.mcdonalds.com.cn'
+			};
+			if(JSON.parse(localStorage.getItem('hash'))){
+				hash = JSON.parse(localStorage.getItem('hash')) 
+			}
+			return {
+				"keys": keys,
+				"hash": hash
+			}
+		}
+		// 创建dom
+		function createTag(tag) {
+			return document.createElement(tag)
+		}
+		// 创建span
+		function createSpan(span,content) {
+			let spanText = createTag(span);
+			spanText.textContent = content;
+			return spanText;
+		}
+		// 创建按钮
+		function createBtn(btn,content) {
+			let button = createTag(btn);
+			button.textContent = content;
+			return button
+		}
+		// 创建键盘按钮
+		function createKeyBord(Bord) {
+			let keyBord = createTag(Bord);
+			return keyBord
+		}
+		// 创建img图片
+		function createImg(domain) {
+			let Img = createTag('img');
+			if(domain){
+				Img.src = `http://${domain}/favicon.ico`;
+			}else{
+				Img.src = '//i.loli.net/2017/11/10/5a05afbc5e183.png'
+			}
+			Img.onerror = function(e) {
+				e.target.src = '//i.loli.net/2017/11/10/5a05afbc5e183.png'
+			}
+			return Img
+		}
+		//创建
 		function create(){
 			let main = document.getElementById('main');
 			for(let i = 0; i < keys.length; i++){
 				let row = document.createElement('div');
 				for(let j = 0; j < keys[i].length; j++){
-					let keyBord = document.createElement('kbd');
-					let btn = document.createElement('button');
-					btn.textContent = '编辑';
-					keyBord.textContent = keys[i][j];
+					let keyBord = createKeyBord('kbd')
+					let spanText = createSpan('span', keys[i][j]);
+					let btn = createBtn('button', '编辑');
+					let Img = createImg(hash[keys[i][j]]);
+					console.log(Img,'img')
 					row.appendChild(keyBord);
+					keyBord.appendChild(spanText);
+					keyBord.appendChild(Img)
 					keyBord.appendChild(btn);
 					btn.onclick = function (e) {
-						let key = keys[i][j]
-						console.log(key)
+						let key = keys[i][j];
 						let content = prompt('给我一个网址');
 						hash[key] = content;
 						localStorage.setItem('hash', JSON.stringify(hash));
+						let Img = createImg(hash[keys[i][j]]);
+						keyBord.appendChild(Img)
 					}
 				}
 				main.appendChild(row)
 			}
-		}
-		document.onkeypress = function(e){
-			console.log(e.key);
-			console.log(hash)
-			window.open(`http://${hash[e.key]}`)
 		}
 	</script>
 </body>
